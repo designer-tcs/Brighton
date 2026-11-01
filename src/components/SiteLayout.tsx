@@ -7,9 +7,9 @@ import logo from "@/assets/brighton-logo.png.asset.json";
 export function SiteLayout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-background">
-      <div className="mx-auto flex max-w-[1500px] gap-6 px-4 lg:px-6 lg:pt-4">
+      <div className="mx-auto flex max-w-[1500px] flex-col lg:flex-row lg:gap-6 lg:px-6 lg:pt-4">
         <SideNav />
-        <main className="min-w-0 flex-1 pb-10">{children}</main>
+        <main className="min-w-0 w-full flex-1 px-4 pb-10 lg:px-0">{children}</main>
       </div>
       <footer className="mx-auto mt-6 max-w-[1500px] px-4 pb-10 lg:mt-10 lg:px-6">
         <div className="card-shell grid gap-8 p-8 md:grid-cols-3">

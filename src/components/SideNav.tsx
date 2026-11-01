@@ -111,7 +111,6 @@ export function SideNav() {
 
   return (
     <>
-      {/* Mobile bar */}
       <div className="sticky top-0 z-40 flex items-center justify-between bg-background/95 px-4 py-3 backdrop-blur lg:hidden">
         <Link to="/">
           <img src={logoMark} alt="Brighton International School, Raipur" className="h-11 w-auto" />
@@ -119,6 +118,7 @@ export function SideNav() {
         <button
           type="button"
           aria-label="Open menu"
+          aria-expanded={mobileOpen}
           onClick={() => setMobileOpen(true)}
           className="rounded-xl bg-card p-2 ring-1 ring-foreground/10"
         >
@@ -127,23 +127,30 @@ export function SideNav() {
       </div>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-background p-4 lg:hidden">
-          <div className="mb-4 flex items-center justify-between">
-            <span className="font-display text-lg font-bold">Menu</span>
-            <button
-              type="button"
-              aria-label="Close menu"
-              onClick={() => setMobileOpen(false)}
-              className="rounded-xl bg-card p-2 ring-1 ring-foreground/10"
-            >
-              <X className="size-5" />
-            </button>
-          </div>
-          <NavList onNavigate={() => setMobileOpen(false)} />
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <button
+            type="button"
+            aria-label="Close menu"
+            className="absolute inset-0 bg-primary/40"
+            onClick={() => setMobileOpen(false)}
+          />
+          <aside className="absolute inset-y-0 left-0 flex w-[min(19rem,86vw)] flex-col overflow-y-auto bg-background p-4 shadow-xl">
+            <div className="mb-4 flex items-center justify-between">
+              <img src={logoMark} alt="" className="h-10 w-auto" />
+              <button
+                type="button"
+                aria-label="Close menu"
+                onClick={() => setMobileOpen(false)}
+                className="rounded-xl bg-card p-2 ring-1 ring-foreground/10"
+              >
+                <X className="size-5" />
+              </button>
+            </div>
+            <NavList onNavigate={() => setMobileOpen(false)} />
+          </aside>
         </div>
       )}
 
-      {/* Desktop sidebar */}
       <aside className="hidden w-[16.5rem] shrink-0 lg:block">
         <div className="sticky top-4 flex h-[calc(100vh-2rem)] min-h-0 flex-col">
           <Link to="/" className="mb-[clamp(0.5rem,1.6vh,1.25rem)] flex shrink-0 justify-center">
@@ -158,7 +165,6 @@ export function SideNav() {
           </div>
         </div>
       </aside>
-
     </>
   );
 }

@@ -2,16 +2,26 @@ import { Link } from "@tanstack/react-router";
 
 export type Tab = { to: string; label: string; exact?: boolean };
 
-export function TabNav({ tabs }: { tabs: readonly Tab[] }) {
+export function TabNav({ tabs, mobileGrid = false }: { tabs: readonly Tab[]; mobileGrid?: boolean }) {
   return (
-    <nav className="sticky top-0 z-40 -mx-2 mb-4 flex gap-2 overflow-x-auto rounded-full bg-background/85 px-2 py-2 backdrop-blur">
+    <nav
+      className={
+        mobileGrid
+          ? "z-30 mb-4 grid grid-cols-3 gap-2 lg:sticky lg:top-0 lg:flex lg:gap-2 lg:overflow-x-auto lg:rounded-full lg:bg-background/85 lg:px-2 lg:py-2 lg:backdrop-blur"
+          : "sticky top-0 z-40 -mx-2 mb-4 flex gap-2 overflow-x-auto rounded-full bg-background/85 px-2 py-2 backdrop-blur"
+      }
+    >
       {tabs.map((t) => (
         <Link
           key={t.to}
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           to={t.to as any}
           activeOptions={{ exact: t.exact ?? true }}
-          className="shrink-0 whitespace-nowrap rounded-full border border-border bg-card px-5 py-2 font-display text-sm transition-colors hover:bg-blush data-[status=active]:border-primary data-[status=active]:bg-primary data-[status=active]:text-primary-foreground"
+          className={
+            mobileGrid
+              ? "flex items-center justify-center rounded-2xl border border-border bg-card px-2 py-2 text-center font-display text-xs leading-tight transition-colors hover:bg-blush data-[status=active]:border-primary data-[status=active]:bg-primary data-[status=active]:text-primary-foreground lg:shrink-0 lg:whitespace-nowrap lg:rounded-full lg:px-5 lg:py-2 lg:text-sm"
+              : "shrink-0 whitespace-nowrap rounded-full border border-border bg-card px-5 py-2 font-display text-sm transition-colors hover:bg-blush data-[status=active]:border-primary data-[status=active]:bg-primary data-[status=active]:text-primary-foreground"
+          }
         >
           {t.label}
         </Link>

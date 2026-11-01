@@ -21,7 +21,7 @@ const tabs = [
 function CurriculumLayout() {
   return (
     <SiteLayout>
-      <TabNav tabs={tabs} />
+      <TabNav tabs={tabs} mobileGrid />
       <Outlet />
     </SiteLayout>
   );
