@@ -1,0 +1,227 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
+  --radius-3xl: calc(var(--radius) + 20px);
+  --radius-4xl: calc(var(--radius) + 28px);
+
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-highlight: var(--highlight);
+  --color-highlight-foreground: var(--highlight-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-coral: var(--coral);
+  --color-coral-foreground: var(--coral-foreground);
+  --color-blush: var(--blush);
+}
+
+:root {
+  --radius: 0.75rem;
+
+  /* Cream page, Brighton logo blues, marigold action */
+  --background: oklch(0.949 0.021 55.6);
+  --foreground: oklch(0.292 0.087 259.3);
+  --surface: oklch(0.98 0.012 60);
+  --surface-2: oklch(0.925 0.02 245);
+
+  --card: oklch(0.99 0.008 60);
+  --card-foreground: oklch(0.292 0.087 259.3);
+  --popover: oklch(0.99 0.008 60);
+  --popover-foreground: oklch(0.292 0.087 259.3);
+
+  /* Brighton deep blue */
+  --primary: oklch(0.366 0.115 258.7);
+  --primary-foreground: oklch(0.985 0.01 90);
+
+  --secondary: oklch(0.925 0.02 245);
+  --secondary-foreground: oklch(0.292 0.087 259.3);
+
+  --muted: oklch(0.925 0.02 245);
+  --muted-foreground: oklch(0.505 0.048 259);
+
+  /* Logo navy for dark bands */
+  --accent: oklch(0.245 0.072 260);
+  --accent-foreground: oklch(0.985 0.01 90);
+
+  /* Logo cyan-blue as bright support */
+  --highlight: oklch(0.635 0.142 241.5);
+  --highlight-foreground: oklch(0.985 0.01 90);
+
+  /* Marigold action colour, dark navy text on top */
+  --coral: oklch(0.784 0.159 73);
+  --coral-foreground: oklch(0.245 0.072 260);
+  --blush: oklch(0.956 0.016 245.1);
+
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0.01 90);
+
+  --border: oklch(0.895 0.022 245);
+  --input: oklch(0.895 0.022 245);
+  --ring: oklch(0.635 0.142 241.5);
+}
+
+/* Pastel preview palettes (switch with the Colours button) */
+:root[data-palette="powder-peach"] {
+  --background: oklch(0.97 0.015 60);
+  --primary: oklch(0.52 0.09 250);
+  --highlight: oklch(0.72 0.09 235);
+  --coral: oklch(0.85 0.085 50);
+  --coral-foreground: oklch(0.3 0.06 255);
+  --accent: oklch(0.3 0.06 255);
+  --foreground: oklch(0.3 0.06 255);
+  --card-foreground: oklch(0.3 0.06 255);
+  --blush: oklch(0.95 0.025 235);
+  --surface-2: oklch(0.93 0.03 235);
+  --secondary: oklch(0.93 0.03 235);
+  --muted: oklch(0.93 0.03 235);
+  --border: oklch(0.9 0.03 235);
+  --input: oklch(0.9 0.03 235);
+  --ring: oklch(0.72 0.09 235);
+}
+
+:root[data-palette="mint-lavender"] {
+  --background: oklch(0.975 0.012 160);
+  --primary: oklch(0.5 0.08 175);
+  --highlight: oklch(0.74 0.09 295);
+  --coral: oklch(0.88 0.08 160);
+  --coral-foreground: oklch(0.3 0.05 200);
+  --accent: oklch(0.3 0.05 200);
+  --foreground: oklch(0.3 0.05 200);
+  --card-foreground: oklch(0.3 0.05 200);
+  --blush: oklch(0.95 0.03 295);
+  --surface-2: oklch(0.93 0.035 165);
+  --secondary: oklch(0.93 0.035 165);
+  --muted: oklch(0.93 0.035 165);
+  --border: oklch(0.9 0.035 170);
+  --input: oklch(0.9 0.035 170);
+  --ring: oklch(0.74 0.09 295);
+}
+
+:root[data-palette="lilac-butter"] {
+  --background: oklch(0.975 0.015 90);
+  --primary: oklch(0.5 0.11 295);
+  --highlight: oklch(0.76 0.1 350);
+  --coral: oklch(0.91 0.1 95);
+  --coral-foreground: oklch(0.3 0.07 290);
+  --accent: oklch(0.3 0.07 290);
+  --foreground: oklch(0.3 0.07 290);
+  --card-foreground: oklch(0.3 0.07 290);
+  --blush: oklch(0.955 0.025 350);
+  --surface-2: oklch(0.93 0.03 295);
+  --secondary: oklch(0.93 0.03 295);
+  --muted: oklch(0.93 0.03 295);
+  --border: oklch(0.9 0.03 295);
+  --input: oklch(0.9 0.03 295);
+  --ring: oklch(0.76 0.1 350);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+@utility nav-index {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: color-mix(in oklab, var(--color-foreground) 45%, transparent);
+}
+
+@utility card-shell {
+  border-radius: 1.75rem;
+  background-color: var(--color-card);
+  box-shadow: 0 1px 0 color-mix(in oklab, var(--color-foreground) 6%, transparent);
+}
+
+@keyframes accordion-down {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+@utility animate-accordion-down {
+  animation: accordion-down 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@utility animate-accordion-up {
+  animation: accordion-up 0.32s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Storytelling infographics */
+@keyframes story-pop { from { opacity: 0; transform: translateY(10px) scale(0.85); } to { opacity: 1; transform: none; } }
+@keyframes story-line { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes story-key { 0%,100% { transform: none; } 50% { transform: translateY(3px); } }
+@keyframes story-strike { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes story-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes story-progress { from { width: 0; } to { width: 100%; } }
+.story-pop { animation: story-pop 0.5s cubic-bezier(.2,.8,.2,1) both; }
+.story-line { transform-origin: left; animation: story-line 0.5s ease-out both; }
+.story-key { animation: story-pop 0.4s both, story-key 0.3s 1.2s ease-in-out; }
+.story-strike { transform-origin: left; animation: story-strike 0.5s 0.2s ease-out both; }
+.story-rise { animation: story-rise 0.55s ease-out both; }
+.story-progress { animation: story-progress 6.5s linear both; }
+@media (prefers-reduced-motion: reduce) {
+  .story-pop, .story-line, .story-key, .story-strike, .story-rise { animation: none; }
+}
