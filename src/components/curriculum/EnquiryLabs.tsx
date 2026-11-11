@@ -1,0 +1,76 @@
+import { VideoGrid } from "@/components/YouTubeCard";
+import soldering from "@/assets/curiosity/curiosity-soldering.jpg";
+import modelPair from "@/assets/curiosity/curiosity-09892.jpg";
+import laser from "@/assets/curiosity/curiosity-09921.jpg";
+import robots from "@/assets/curiosity/curiosity-09953.jpg";
+
+const middleVideos = [
+  { id: "V-Msv7fozcY", title: "Potato generate electricity" },
+  { id: "gsX-4rMtFJg", title: "Colour of shadows" },
+];
+
+const secondaryVideos = [
+  { id: "mk1c5llStdk", title: "Newton's Third Law" },
+  { id: "dMxrv1M3qTk", title: "Magnetic Effect of Electricity" },
+  { id: "66ihIq_4nnE", title: "Salt water generates electricity" },
+  { id: "75pzQOjA4lI", title: "Simple electric circuit" },
+];
+
+const playlist = "https://www.youtube.com/playlist?list=PLUacnczd9pX0";
+
+function PlaylistLink() {
+  return (
+    <a
+      href={playlist}
+      target="_blank"
+      rel="noreferrer"
+      className="mt-4 inline-flex font-display text-sm text-primary hover:underline"
+    >
+      Robotics & Curiosity at Brighton — full playlist
+    </a>
+  );
+}
+
+export function EnquiryLabs({ stage }: { stage: "middle" | "secondary" }) {
+  if (stage === "secondary") {
+    return (
+      <section className="card-shell mt-6 overflow-hidden p-7 md:p-8">
+        <p className="text-xs font-semibold uppercase tracking-wider text-highlight">Classes IX and X</p>
+        <h2 className="mt-1 font-display text-3xl text-primary">Testing an idea in the lab</h2>
+        <p className="mt-3 max-w-3xl text-muted-foreground">
+          In Classes IX and X, enquiry stays at the centre of the week, now beside the Physics, Chemistry and Biology laboratories. The Curiosity Lab and the Robotics Lab are where a lesson becomes something students build and test, and some of that work still happens beyond the classroom.
+        </p>
+        <div className="mt-6">
+          <VideoGrid videos={secondaryVideos} cols={2} />
+        </div>
+        <PlaylistLink />
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">
+          <img
+            src={robots}
+            alt="Student-built robots in the Robotics Lab"
+            className="aspect-[4/3] w-full rounded-2xl object-cover object-[center_62%]"
+          />
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="card-shell mt-6 p-7 md:p-8">
+      <p className="text-xs font-semibold uppercase tracking-wider text-highlight">Classes VI to VIII</p>
+      <h2 className="mt-1 font-display text-3xl text-primary">Enquiry-based learning</h2>
+      <p className="mt-3 max-w-3xl text-muted-foreground">
+        From Class VI to Class VIII, enquiry-based learning carries greater weight. The hands-on Curiosity Lab and the Robotics Lab make a real difference, alongside a lesson plan that is activity-led and sometimes takes learning beyond the classroom.
+      </p>
+      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+        <img src={soldering} alt="Students building a circuit in the Curiosity Lab" className="aspect-[4/3] w-full rounded-2xl object-cover object-center" />
+        <img src={modelPair} alt="Students working with a model in the Curiosity Lab" className="aspect-[4/3] w-full rounded-2xl object-cover object-[center_30%]" />
+        <img src={laser} alt="A student studying a light experiment in the Curiosity Lab" className="aspect-[4/3] w-full rounded-2xl object-cover object-[78%_42%]" />
+      </div>
+      <div className="mt-6">
+        <VideoGrid videos={middleVideos} cols={2} />
+      </div>
+      <PlaylistLink />
+    </section>
+  );
+}

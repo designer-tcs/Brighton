@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { StagePage } from "@/components/curriculum/StagePage";
+import { EnquiryLabs } from "@/components/curriculum/EnquiryLabs";
 import { BoardResults } from "@/components/curriculum/BoardResults";
 import { stageBySlug } from "@/components/curriculum/stages";
 
@@ -16,7 +17,7 @@ export const Route = createFileRoute("/curriculum/secondary")({
   }),
   component: () => (
     <>
-      <StagePage stage={stageBySlug("secondary")} />
+      <StagePage stage={stageBySlug("secondary")} afterOverview={<EnquiryLabs stage="secondary" />} />
       <BoardResults cls="X" />
     </>
   ),

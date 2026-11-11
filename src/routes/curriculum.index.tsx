@@ -6,9 +6,9 @@ export const Route = createFileRoute("/curriculum/")({
   head: () => ({
     meta: [
       { title: "Pre-Primary Curriculum | Brighton International School, Raipur" },
-      { name: "description", content: "Brighton's CBSE Pre-Primary programme for Nursery to KG II: Montessori-style learning, daily phonics and structured play in Raipur." },
+      { name: "description", content: "Brighton's Pre-Primary programme for Nursery to KG II: Jolly Phonics, early mathematics, purposeful play and daily practice in Raipur." },
       { property: "og:title", content: "Pre-Primary Curriculum at Brighton International School" },
-      { property: "og:description", content: "Brighton's CBSE Pre-Primary programme for Nursery to KG II: Montessori-style learning, daily phonics and structured play in Raipur." },
+      { property: "og:description", content: "Brighton's Pre-Primary programme for Nursery to KG II: Jolly Phonics, early mathematics, purposeful play and daily practice in Raipur." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

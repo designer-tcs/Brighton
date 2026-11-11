@@ -71,13 +71,13 @@ const phases: {
       {
         n: 5,
         title: "BEST — entrance assessment",
-        body: "The student appears for the mandatory Brighton Entrance Scholastic Test, online or at school.",
+        body: "The student sits the Brighton Entrance Scholastic Test at the campus, pencil and paper. There are two slots; the times are sent after the registration form is filled. There is no spot registration on the day.",
         icon: PencilRuler,
       },
       {
         n: 6,
         title: "Results & communication",
-        body: "Results are shared on the school website, and parents are told by phone, email and message. Pay the admission fee and caution money within six days of the results to guarantee the seat.",
+        body: "For the 17 January 2027 test, results are released by 4:00 pm on Tuesday 19 January 2027. Parents are told by phone, email and message. Pay the admission fee and caution money within six days to guarantee the seat.",
         icon: Globe,
       },
     ],

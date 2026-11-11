@@ -42,6 +42,7 @@ import { Route as CurriculumPrimaryRouteImport } from './routes/curriculum.prima
 import { Route as CurriculumRoboticsRouteImport } from './routes/curriculum.robotics'
 import { Route as CurriculumSecondaryRouteImport } from './routes/curriculum.secondary'
 import { Route as CurriculumSeniorSecondaryRouteImport } from './routes/curriculum.senior-secondary'
+import { Route as CurriculumSkedRouteImport } from './routes/curriculum.sked'
 import { Route as CurriculumSportsRouteImport } from './routes/curriculum.sports'
 import { Route as LectureSeriesIndexRouteImport } from './routes/lecture-series.index'
 import { Route as LectureSeriesSlugRouteImport } from './routes/lecture-series.$slug'
@@ -213,6 +214,11 @@ const CurriculumSeniorSecondaryRoute =
     path: '/senior-secondary',
     getParentRoute: () => CurriculumRoute,
   } as any)
+const CurriculumSkedRoute = CurriculumSkedRouteImport.update({
+  id: '/sked',
+  path: '/sked',
+  getParentRoute: () => CurriculumRoute,
+} as any)
 const CurriculumSportsRoute = CurriculumSportsRouteImport.update({
   id: '/sports',
   path: '/sports',
@@ -260,6 +266,7 @@ export interface FileRoutesByFullPath {
   '/curriculum/robotics': typeof CurriculumRoboticsRoute
   '/curriculum/secondary': typeof CurriculumSecondaryRoute
   '/curriculum/senior-secondary': typeof CurriculumSeniorSecondaryRoute
+  '/curriculum/sked': typeof CurriculumSkedRoute
   '/curriculum/sports': typeof CurriculumSportsRoute
   '/lecture-series/$slug': typeof LectureSeriesSlugRoute
   '/about/': typeof AboutIndexRoute
@@ -294,6 +301,7 @@ export interface FileRoutesByTo {
   '/curriculum/robotics': typeof CurriculumRoboticsRoute
   '/curriculum/secondary': typeof CurriculumSecondaryRoute
   '/curriculum/senior-secondary': typeof CurriculumSeniorSecondaryRoute
+  '/curriculum/sked': typeof CurriculumSkedRoute
   '/curriculum/sports': typeof CurriculumSportsRoute
   '/lecture-series/$slug': typeof LectureSeriesSlugRoute
   '/about': typeof AboutIndexRoute
@@ -333,6 +341,7 @@ export interface FileRoutesById {
   '/curriculum/robotics': typeof CurriculumRoboticsRoute
   '/curriculum/secondary': typeof CurriculumSecondaryRoute
   '/curriculum/senior-secondary': typeof CurriculumSeniorSecondaryRoute
+  '/curriculum/sked': typeof CurriculumSkedRoute
   '/curriculum/sports': typeof CurriculumSportsRoute
   '/lecture-series/$slug': typeof LectureSeriesSlugRoute
   '/about/': typeof AboutIndexRoute
@@ -373,6 +382,7 @@ export interface FileRouteTypes {
     | '/curriculum/robotics'
     | '/curriculum/secondary'
     | '/curriculum/senior-secondary'
+    | '/curriculum/sked'
     | '/curriculum/sports'
     | '/lecture-series/$slug'
     | '/about/'
@@ -407,6 +417,7 @@ export interface FileRouteTypes {
     | '/curriculum/robotics'
     | '/curriculum/secondary'
     | '/curriculum/senior-secondary'
+    | '/curriculum/sked'
     | '/curriculum/sports'
     | '/lecture-series/$slug'
     | '/about'
@@ -445,6 +456,7 @@ export interface FileRouteTypes {
     | '/curriculum/robotics'
     | '/curriculum/secondary'
     | '/curriculum/senior-secondary'
+    | '/curriculum/sked'
     | '/curriculum/sports'
     | '/lecture-series/$slug'
     | '/about/'
@@ -700,6 +712,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CurriculumSeniorSecondaryRouteImport
       parentRoute: typeof CurriculumRoute
     }
+    '/curriculum/sked': {
+      id: '/curriculum/sked'
+      path: '/sked'
+      fullPath: '/curriculum/sked'
+      preLoaderRoute: typeof CurriculumSkedRouteImport
+      parentRoute: typeof CurriculumRoute
+    }
     '/curriculum/sports': {
       id: '/curriculum/sports'
       path: '/sports'
@@ -778,6 +797,7 @@ interface CurriculumRouteChildren {
   CurriculumRoboticsRoute: typeof CurriculumRoboticsRoute
   CurriculumSecondaryRoute: typeof CurriculumSecondaryRoute
   CurriculumSeniorSecondaryRoute: typeof CurriculumSeniorSecondaryRoute
+  CurriculumSkedRoute: typeof CurriculumSkedRoute
   CurriculumSportsRoute: typeof CurriculumSportsRoute
   CurriculumIndexRoute: typeof CurriculumIndexRoute
 }
@@ -790,6 +810,7 @@ const CurriculumRouteChildren: CurriculumRouteChildren = {
   CurriculumRoboticsRoute: CurriculumRoboticsRoute,
   CurriculumSecondaryRoute: CurriculumSecondaryRoute,
   CurriculumSeniorSecondaryRoute: CurriculumSeniorSecondaryRoute,
+  CurriculumSkedRoute: CurriculumSkedRoute,
   CurriculumSportsRoute: CurriculumSportsRoute,
   CurriculumIndexRoute: CurriculumIndexRoute,
 }

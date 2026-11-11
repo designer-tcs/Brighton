@@ -12,6 +12,7 @@ const tabs = [
   { label: "Middle", to: "/curriculum/middle" },
   { label: "Secondary", to: "/curriculum/secondary" },
   { label: "Senior Secondary", to: "/curriculum/senior-secondary" },
+  { label: "SKED", to: "/curriculum/sked" },
   { label: "Across Brighton", to: "/curriculum/across-brighton" },
   { label: "Robotics", to: "/curriculum/robotics" },
   { label: "Sports", to: "/curriculum/sports" },

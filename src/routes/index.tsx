@@ -11,6 +11,7 @@ import { JournalSection } from "@/components/JournalSection";
 import { FaqSection } from "@/components/FaqSection";
 import heroKids from "@/assets/hero-kids.jpg";
 import { HowBrightonDoesIt } from "@/components/story/BrightonStory";
+import { CoCurricularCalendar } from "@/components/CoCurricularCalendar";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -78,6 +79,8 @@ function Home() {
       <DifferenceSection />
 
       <HowBrightonDoesIt />
+
+      <CoCurricularCalendar />
 
       <CampusTourSection />
 

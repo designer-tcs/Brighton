@@ -5,7 +5,23 @@ import { SectionBanner } from "@/components/SectionBanner";
 import { AdmissionFlowInfographic } from "@/components/AdmissionFlowInfographic";
 import { BestResults } from "@/components/admissions/BestResults";
 import { BestGuide } from "@/components/admissions/BestGuide";
-import { classOptions, Field, inputClass, Td, Th } from "@/components/admissions/ui";
+import { Field, inputClass, Td, Th } from "@/components/admissions/ui";
+
+const enquiryClasses = [
+  "Nursery",
+  "KG I",
+  "KG II",
+  "Class I",
+  "Class II",
+  "Class III",
+  "Class IV",
+  "Class V",
+  "Class VI",
+  "Class VII",
+  "Class VIII",
+  "Class IX",
+  "Class XI",
+];
 import admissionsHero from "@/assets/school/campus-gate.jpg";
 import { WhatYourChildWalksInto } from "@/components/story/BrightonStory";
 
@@ -33,7 +49,7 @@ export const Route = createFileRoute("/admissions/")({
 
 const testTable = [
   { cls: "Nursery to KG II", test: "Oral", format: "A friendly interaction" },
-  { cls: "Class I and onwards", test: "BEST and an interview", format: "Online as well as offline" },
+  { cls: "Class I and onwards", test: "BEST and an interview", format: "Offline, pencil and paper" },
   {
     cls: "Class XI",
     test: "Written test and an interaction",
@@ -133,6 +149,16 @@ function AdmissionsIndex() {
           subtitle="Tell us a little about your child and our admissions team will get back to you."
           tone="dark"
         />
+        <div className="card-shell mt-3 space-y-3 border border-border p-7 text-sm">
+          <p>
+            We do not provide dummy admissions. Kindly do not approach with any such request for
+            students preparing for competitive exams in Class XI or XII.
+          </p>
+          <p>
+            We work all 7 days. Enquiries regarding admission can be made on all days, including
+            Sundays, by visiting the campus. We are closed only during major festivals and holidays.
+          </p>
+        </div>
         <form
           className="card-shell mt-3 border border-border p-7 md:p-9"
           onSubmit={(e) => e.preventDefault()}
@@ -152,7 +178,7 @@ function AdmissionsIndex() {
                 <option value="" disabled>
                   Please choose an option
                 </option>
-                {classOptions.map((c) => (
+                {enquiryClasses.map((c) => (
                   <option key={c} value={c}>
                     {c}
                   </option>
@@ -231,8 +257,9 @@ function AdmissionsIndex() {
           <div className="card-shell border border-border p-7">
             <h3 className="font-display text-xl">Brighton Entrance Scholastic Test (BEST)</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Students of Class I and above register for BEST, which can be taken online or at
-              school. It looks at how a child thinks and reasons, not how much they have memorised.
+              Students of Class I and above take BEST at the campus. It is a pencil-and-paper test.
+              The registration form can be filled at the campus or online. There is no spot
+              registration on the day of the test.
             </p>
             <a
               href="https://pgpay.icici.bank.in/pg/portal/pay/initiatePayOrder?merchantID=100000000543884"

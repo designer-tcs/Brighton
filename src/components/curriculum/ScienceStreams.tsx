@@ -43,9 +43,9 @@ export function ScienceStreams() {
   const [k, setK] = useState(0);
   const s = streams[k] ?? streams[0]!;
   return (
-    <section className="card-shell mt-6 border border-border p-7">
-      <p className="text-xs uppercase tracking-widest text-muted-foreground">Science in Class XI & XII</p>
-      <h2 className="mt-1 font-display text-2xl text-primary">Pick a stream, see where it leads</h2>
+    <section className="card-shell mt-6 border border-primary/20 p-7 md:p-8">
+      <p className="text-xs font-semibold uppercase tracking-widest text-highlight">Subject choices and career opportunities</p>
+      <h2 className="mt-1 font-display text-3xl text-primary">Pick a stream, see where it leads</h2>
       <div className="mt-5 flex gap-2">
         {streams.map((x, n) => (
           <button
@@ -77,10 +77,10 @@ export function ScienceStreams() {
           <p className="mt-4 text-sm text-muted-foreground">Our students have produced 100% results in Class XII at CBSE year on year.</p>
         </div>
         <div>
-          <p className="text-xs uppercase tracking-widest text-muted-foreground">A few career options</p>
-          <ul className="mt-2 flex flex-wrap gap-2">
+          <p className="text-xs font-semibold uppercase tracking-widest text-highlight">A few career options</p>
+          <ul className="mt-3 grid gap-2 sm:grid-cols-2">
             {s.careers.map((c) => (
-              <li key={c.t} title={c.d} className="rounded-2xl border border-border px-3 py-2 text-sm">
+              <li key={c.t} title={c.d} className="rounded-2xl bg-blush px-3 py-2 text-sm">
                 <b className="font-display text-primary">{c.t}</b>
                 {c.d && <span className="block text-xs text-muted-foreground">{c.d}</span>}
               </li>

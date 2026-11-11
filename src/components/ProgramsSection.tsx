@@ -24,7 +24,7 @@ const programs: {
 }[] = [
   {
     title: "Pre-Primary",
-    grades: "Nursery to UKG",
+    grades: "Nursery to KG II",
     body: "A warm, nurturing start where children learn to speak up, share, and try again — curiosity and confidence as the first life skills.",
     image: prePrimary,
     alt: "Two pre-primary girls in Brighton uniform working at a table",

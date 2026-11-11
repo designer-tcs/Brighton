@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState, type FormEvent, type ReactNode } from "react";
 import {
   Accordion,
   AccordionContent,
@@ -8,6 +8,7 @@ import {
 import { Field, inputClass } from "@/components/admissions/ui";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import type { Stage } from "./stages";
+import { SkedMention } from "./SkedCalendars";
 
 function Shot({ src, label }: { src?: string; label: string }) {
   if (!src) return <PhotoSlot label={label} className="aspect-[3/2]" />;
@@ -23,16 +24,30 @@ function Shot({ src, label }: { src?: string; label: string }) {
   );
 }
 
-function Heading({ title, sub }: { title: string; sub: string }) {
+function Heading({ title, sub, kicker }: { title: string; sub?: string; kicker?: string }) {
   return (
     <div className="max-w-2xl">
-      <h2 className="font-display text-3xl text-primary md:text-4xl">{title}</h2>
-      <p className="mt-2 text-muted-foreground">{sub}</p>
+      {kicker && <p className="text-xs font-semibold uppercase tracking-wider text-highlight">{kicker}</p>}
+      <h2 className="mt-1 font-display text-3xl text-primary md:text-4xl">{title}</h2>
+      {sub && <p className="mt-2 text-muted-foreground">{sub}</p>}
     </div>
   );
 }
 
-export function StagePage({ stage: s }: { stage: Stage }) {
+function BulletList({ items }: { items: string[] }) {
+  return (
+    <ul className="mt-3 space-y-1.5 text-sm text-muted-foreground">
+      {items.map((item) => (
+        <li key={item} className="flex gap-2">
+          <span className="mt-2 size-1.5 shrink-0 rounded-full bg-coral" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export function StagePage({ stage: s, afterOverview }: { stage: Stage; afterOverview?: ReactNode }) {
   const [sent, setSent] = useState(false);
   const submit = (e: FormEvent) => {
     e.preventDefault();
@@ -60,6 +75,7 @@ export function StagePage({ stage: s }: { stage: Stage }) {
           <p className="font-display text-sm uppercase tracking-widest text-coral">{s.label}</p>
           <h1 className="mt-3 font-display text-4xl leading-tight md:text-5xl">{s.headline}</h1>
           <p className="mt-4 text-primary-foreground/85">{s.subline}</p>
+          {s.sublineMore && <p className="mt-3 text-primary-foreground/85">{s.sublineMore}</p>}
           <a href="#enquire" className="mt-6 inline-flex w-fit rounded-full bg-coral px-6 py-3 font-display text-coral-foreground hover:opacity-90">
             Enquire Now
           </a>
@@ -83,65 +99,160 @@ export function StagePage({ stage: s }: { stage: Stage }) {
             <Shot src={s.images.overview} label={s.overview.title} />
           </div>
         )}
-        <div className={`mt-6 grid gap-3 sm:grid-cols-2 ${s.overview.boxes.length === 4 ? "" : "lg:grid-cols-3"}`}>
-          {s.overview.boxes.map(({ icon: Icon, t, b, subjects }) => (
-            <article key={t} className="flex flex-col rounded-2xl bg-blush p-5">
+        <div className={`mt-6 grid gap-3 sm:grid-cols-2 ${s.overview.boxes.some((box) => box.points || box.note) || s.overview.boxes.filter((box) => !box.feature).length === 4 ? "" : "lg:grid-cols-3"}`}>
+          {s.overview.boxes.filter((box) => !box.feature).map(({ icon: Icon, t, b, subjects, kicker, points, list, note }) => (
+            <article key={t} className={`flex flex-col rounded-2xl bg-blush p-5 ${points || note ? "sm:col-span-2" : ""}`}>
               <span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground">
                 <Icon className="size-5" />
               </span>
               <h3 className="mt-3 font-display text-lg">{t}</h3>
+              {kicker && <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-highlight">{kicker}</p>}
               <p className="mt-1 text-sm text-muted-foreground">{b}</p>
+              {points && (
+                <div className="mt-4 grid gap-3 lg:grid-cols-3">
+                  {points.map((point) => (
+                    <div key={point.t} className="rounded-xl bg-card p-4">
+                      <h4 className="font-display text-base text-primary">{point.t}</h4>
+                      <p className="mt-1 text-sm text-muted-foreground">{point.b}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+              {list && <BulletList items={list} />}
+              {note && (
+                <div className="mt-4 rounded-xl bg-card p-4">
+                  <h4 className="font-display text-base text-primary">{note.t}</h4>
+                  <p className="mt-1 text-sm text-muted-foreground">{note.b}</p>
+                </div>
+              )}
               {subjects && (
                 <div className="mt-4 flex flex-wrap gap-1.5">
                   {subjects.map((x) => (
-                    <span key={x} className="rounded-full bg-card px-3 py-1 text-xs font-medium text-primary">{x}</span>
+                    <span key={x} className="rounded-full bg-primary px-3 py-1.5 font-display text-sm text-primary-foreground">{x}</span>
                   ))}
                 </div>
               )}
             </article>
           ))}
         </div>
+        {s.overview.boxes.filter((box) => box.feature).map(({ icon: Icon, t, b, list }) => (
+          <article key={t} className="mt-4 rounded-2xl bg-primary p-6 text-primary-foreground md:p-8">
+            <span className="grid size-10 place-items-center rounded-xl bg-coral text-coral-foreground">
+              <Icon className="size-5" />
+            </span>
+            <h3 className="mt-3 font-display text-2xl">{t}</h3>
+            <p className="mt-1 max-w-3xl text-sm text-primary-foreground/80">{b}</p>
+            {list && (
+              <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                {list.map((item) => {
+                  const [name, ...rest] = item.split(":");
+                  return (
+                    <div key={item} className="rounded-xl bg-primary-foreground/10 px-4 py-3">
+                      <p className="font-display text-coral">{name}</p>
+                      {rest.length > 0 && <p className="mt-0.5 text-sm text-primary-foreground/85">{rest.join(":").trim()}</p>}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </article>
+        ))}
         {s.overview.extra && (
-          <Accordion type="single" collapsible className="mt-4">
-            <AccordionItem value="extra">
-              <AccordionTrigger className="text-base">{s.overview.extra.title}</AccordionTrigger>
-              <AccordionContent className="space-y-2 text-muted-foreground">
-                {s.overview.extra.body.map((p) => <p key={p}>{p}</p>)}
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          <div className="mt-4 rounded-2xl bg-primary p-6 text-primary-foreground">
+            <h3 className="font-display text-xl">{s.overview.extra.title}</h3>
+            {s.overview.extra.chips && (
+              <div className="mt-4 flex flex-wrap gap-2">
+                {s.overview.extra.chips.map((chip) => (
+                  <span key={chip} className="rounded-full bg-coral px-3 py-1.5 font-display text-sm text-coral-foreground">{chip}</span>
+                ))}
+              </div>
+            )}
+            <div className="mt-4 space-y-2 text-sm text-primary-foreground/85">
+              {s.overview.extra.body.map((p) => <p key={p}>{p}</p>)}
+            </div>
+          </div>
         )}
       </section>
 
+      {afterOverview}
+
       {/* Learning experience */}
-      <section id="experience" className="mt-6 grid scroll-mt-20 gap-6 lg:grid-cols-2">
-        <Shot src={s.images.experience} label={s.experience.title} />
-        <div className="card-shell p-8">
-          <Heading title={s.experience.title} sub={s.experience.sub} />
-          <div className="mt-6 space-y-4">
-            {s.experience.items.map((e, i) => (
-              <div key={e.t} className="flex gap-4">
-                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-coral font-display text-coral-foreground">{i + 1}</span>
-                <div>
-                  <h3 className="font-display text-lg">{e.t}</h3>
-                  <p className="text-sm text-muted-foreground">{e.b}</p>
+      <section id="experience" className="mt-6 scroll-mt-20">
+        <div className="grid gap-6 lg:grid-cols-2">
+          <Shot src={s.images.experience} label={s.experience.title} />
+          <div className="card-shell p-8">
+            <Heading title={s.experience.title} sub={s.experience.sub} />
+            <div className="mt-6 space-y-4">
+              {s.experience.items.slice(0, s.experience.items.length > 3 ? 1 : undefined).map((e, i) => (
+                <div key={e.t}>
+                  <div className="flex gap-4">
+                    <span className="grid size-9 shrink-0 place-items-center rounded-full bg-coral font-display text-coral-foreground">{i + 1}</span>
+                    <div className="min-w-0">
+                      <h3 className="font-display text-lg">{e.t}</h3>
+                      <p className="text-sm text-muted-foreground">{e.b}</p>
+                      {e.list && <BulletList items={e.list} />}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
+        {s.experience.items.length > 3 && (
+          <div className="mt-3 grid gap-3 lg:grid-cols-3">
+            {s.experience.items.slice(1).map((e, i) => (
+              <article key={e.t} className="card-shell p-6">
+                <div className="flex gap-4">
+                  <span className="grid size-9 shrink-0 place-items-center rounded-full bg-coral font-display text-coral-foreground">{i + 2}</span>
+                  <div className="min-w-0">
+                    <h3 className="font-display text-lg">{e.t}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">{e.b}</p>
+                    {e.list && <BulletList items={e.list} />}
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
       </section>
 
-      {(s.slug === "pre-primary" || s.slug === "primary") && (
-        <section className="mt-6 grid gap-4 rounded-[1.75rem] bg-coral p-8 text-coral-foreground md:grid-cols-[auto_1fr] md:items-center md:p-10">
-          <p className="font-display text-sm uppercase tracking-widest">Nursery – Class V</p>
-          <div>
-            <h2 className="font-display text-3xl">Class Event</h2>
-            <p className="mt-2">
-              Every class gets its own chance to put on a show — a lively mix of acts performed in
-              front of parents. Children learn to speak up, work as a team and carry a stage with confidence.
-            </p>
+      {s.classEvent && (
+        <section className="mt-6 rounded-[1.75rem] bg-coral p-8 text-coral-foreground md:p-10">
+          <p className="font-display text-sm uppercase tracking-widest">{s.classEvent.kicker}</p>
+          <h2 className="mt-2 max-w-3xl font-display text-3xl">{s.classEvent.title}</h2>
+          <div className="mt-3 max-w-3xl space-y-2">
+            {s.classEvent.lines.map((line) => <p key={line}>{line}</p>)}
           </div>
+        </section>
+      )}
+
+      {s.voice && (
+        <section className="card-shell mt-6 p-8">
+          <h2 className="font-display text-3xl text-primary">{s.voice.title}</h2>
+          <p className="mt-2 max-w-3xl text-muted-foreground">{s.voice.body}</p>
+        </section>
+      )}
+
+      {s.futureReady && (
+        <section id="future-ready" className="card-shell mt-6 scroll-mt-20 p-8">
+          <p className="text-xs font-semibold uppercase tracking-wider text-highlight">{s.futureReady.kicker}</p>
+          <h2 className="mt-1 font-display text-3xl text-primary md:text-4xl">{s.futureReady.title}</h2>
+          <div className="mt-3 max-w-3xl space-y-3 text-muted-foreground">
+            {s.futureReady.intro.map((line) => <p key={line}>{line}</p>)}
+          </div>
+          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
+            {s.futureReady.items.map(({ icon: Icon, t, b, kicker }, i) => (
+              <article key={t} className={`rounded-2xl bg-blush p-5 ${i < 3 ? "lg:col-span-2" : "lg:col-span-3"}`}>
+                <span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground">
+                  <Icon className="size-5" />
+                </span>
+                <h3 className="mt-3 font-display text-lg">{t}</h3>
+                {kicker && <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-highlight">{kicker}</p>}
+                <p className="mt-1 text-sm text-muted-foreground">{b}</p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-6 max-w-3xl text-sm text-muted-foreground">{s.futureReady.close}</p>
         </section>
       )}
 
@@ -149,9 +260,9 @@ export function StagePage({ stage: s }: { stage: Stage }) {
       <section className="mt-6 overflow-hidden rounded-[1.75rem] bg-primary p-8 text-primary-foreground md:p-10">
         <div className="max-w-2xl">
           <h2 className="font-display text-3xl md:text-4xl">{s.approach.title}</h2>
-          <p className="mt-2 text-primary-foreground/80">{s.approach.intro}</p>
+          {s.approach.intro && <p className="mt-2 text-primary-foreground/80">{s.approach.intro}</p>}
         </div>
-        <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_minmax(0,1fr)_minmax(0,1.2fr)]">
+        <div className={`mt-6 grid gap-4 ${s.approach.items.length <= 1 ? "lg:grid-cols-2" : s.approach.items.length === 2 ? "lg:grid-cols-3" : "lg:grid-cols-4"}`}>
           {s.approach.items.map((p) => (
             <div key={p.t} className="rounded-2xl bg-primary-foreground/10 p-5">
               <h3 className="font-display text-lg text-coral">{p.t}</h3>
@@ -165,18 +276,35 @@ export function StagePage({ stage: s }: { stage: Stage }) {
       {/* Educators */}
       <section className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
         <div className="card-shell p-8">
-          <Heading title={s.support.title} sub={s.support.sub} />
+          <Heading title={s.support.title} sub={s.support.sub} kicker={s.support.kicker} />
           <div className="mt-6 grid gap-3">
             {s.support.items.map((x) => (
               <div key={x.t} className="rounded-2xl border border-border bg-surface p-5">
                 <h3 className="font-display text-lg">{x.t}</h3>
                 <p className="mt-1 text-sm text-muted-foreground">{x.b}</p>
+                {x.list && <BulletList items={x.list} />}
+              </div>
+            ))}
+            {s.support.notes?.map((note) => (
+              <div key={note.q} className="rounded-2xl bg-blush p-5">
+                <h3 className="font-display text-lg">{note.q}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{note.a}</p>
               </div>
             ))}
           </div>
         </div>
         <Shot src={s.images.support} label={s.support.title} />
       </section>
+
+      {s.readiness && (
+        <section className="mt-6 rounded-[1.75rem] bg-primary p-8 text-primary-foreground md:p-10">
+          <h2 className="max-w-3xl font-display text-3xl md:text-4xl">{s.readiness.title}</h2>
+          <div className="mt-3 max-w-3xl space-y-3 text-primary-foreground/85">
+            {s.readiness.lines.map((line) => <p key={line}>{line}</p>)}
+          </div>
+          {s.readiness.close && <p className="mt-6 font-display text-2xl text-coral">{s.readiness.close}</p>}
+        </section>
+      )}
 
       {/* Form */}
       <section id="enquire" className="mt-6 grid scroll-mt-20 gap-6 rounded-[1.75rem] bg-blush p-8 md:p-10 lg:grid-cols-[0.8fr_1.2fr]">
@@ -218,7 +346,7 @@ export function StagePage({ stage: s }: { stage: Stage }) {
       {/* Week */}
       <section id="day" className="card-shell mt-6 scroll-mt-20 p-8">
         <Heading title={s.week.title} sub={s.week.sub} />
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className={`mt-6 grid gap-3 sm:grid-cols-2 ${s.week.facts.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"}`}>
           {s.week.facts.map(({ icon: Icon, t, b }) => (
             <div key={t} className="rounded-2xl bg-primary p-5 text-primary-foreground">
               <Icon className="size-6 text-coral" />
@@ -227,30 +355,14 @@ export function StagePage({ stage: s }: { stage: Stage }) {
             </div>
           ))}
         </div>
-        <p className="mt-4 rounded-xl border border-dashed border-border p-4 text-sm text-muted-foreground">
-          The full Monday–Saturday timetable for {s.classesText} will be added here once confirmed by the school.
-        </p>
+        {s.week.pendingTimetable !== false && (
+          <p className="mt-4 rounded-xl border border-dashed border-border p-4 text-sm text-muted-foreground">
+            The full Monday–Saturday timetable for {s.classesText} will be added here once confirmed by the school.
+          </p>
+        )}
       </section>
 
-      {/* Monthly culminations */}
-      <section className="mt-6">
-        <div className="rounded-[1.75rem] bg-blush px-8 py-6">
-          <h2 className="font-display text-3xl text-primary">Monthly Culminations</h2>
-          <p className="mt-1 text-sm text-muted-foreground">Showcases of students' learning — details coming soon.</p>
-        </div>
-        <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {["Learning showcase 1", "Learning showcase 2", "Learning showcase 3", "Learning showcase 4"].map((label) => (
-            <article key={label} className="card-shell overflow-hidden border border-border">
-              <PhotoSlot label={label} className="aspect-[3/2] rounded-none" />
-              <div className="p-5">
-                <p className="text-xs uppercase tracking-wider text-highlight">Learning area</p>
-                <h3 className="mt-1 font-display text-lg">Activity coming soon</h3>
-                <p className="mt-1 text-sm text-muted-foreground">Guiding question, approach and the skills students developed.</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+      <SkedMention />
 
       {/* FAQ */}
       <section className="card-shell mt-6 p-8">

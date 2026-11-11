@@ -19,14 +19,21 @@ export const Route = createFileRoute("/curriculum/senior-secondary")({
   }),
   component: () => (
     <>
-      <StagePage stage={stageBySlug("senior-secondary")} />
-      <ScienceStreams />
-      <SeniorCareers />
+      <StagePage
+        stage={stageBySlug("senior-secondary")}
+        afterOverview={
+          <>
+            <ScienceStreams />
+            <SeniorCareers />
+            <section className="card-shell mt-6 p-7">
+              <p className="text-xs font-semibold uppercase tracking-wider text-highlight">Careers</p>
+              <h2 className="mt-1 font-display text-3xl text-primary">Career Fair 2025</h2>
+              <YouTubeCard id="YEVLZgb9hzw" title="Career Fair 2025 at Brighton International School" className="mt-4 max-w-3xl" />
+            </section>
+          </>
+        }
+      />
       <BoardResults cls="XII" />
-      <section className="mt-6">
-        <h2 className="mb-4 font-display text-2xl text-primary">Career Fair 2025</h2>
-        <YouTubeCard id="YEVLZgb9hzw" title="Career Fair 2025 at Brighton International School" className="max-w-3xl" />
-      </section>
     </>
   ),
 });
