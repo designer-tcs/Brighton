@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { SideNav } from "./SideNav";
 import { PaletteSwitcher } from "./PaletteSwitcher";
-import logo from "@/assets/brighton-logo.png.asset.json";
+import logo from "@/assets/brighton-logo-mark.png";
 
 export function SiteLayout({ children }: { children: ReactNode }) {
   return (
@@ -15,7 +15,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
         <div className="card-shell grid gap-8 p-8 md:grid-cols-3">
           <div>
             <img
-              src={logo.url}
+              src={logo}
               alt="Brighton International School, Raipur"
               className="h-16 w-auto"
             />
