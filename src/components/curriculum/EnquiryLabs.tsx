@@ -1,8 +1,9 @@
+import { useRef, useState } from "react";
+import { Play } from "lucide-react";
 import { VideoGrid } from "@/components/YouTubeCard";
 import soldering from "@/assets/curiosity/curiosity-soldering.jpg";
 import modelPair from "@/assets/curiosity/curiosity-09892.jpg";
 import laser from "@/assets/curiosity/curiosity-09921.jpg";
-import robots from "@/assets/curiosity/curiosity-09953.jpg";
 
 const middleVideos = [
   { id: "V-Msv7fozcY", title: "Potato generate electricity" },
@@ -16,7 +17,69 @@ const secondaryVideos = [
   { id: "75pzQOjA4lI", title: "Simple electric circuit" },
 ];
 
+const labVideos = [
+  {
+    src: "/videos/testing-an-idea.mp4",
+    poster: "/videos/testing-an-idea.jpg",
+    caption: "Students watch a green laser fountain",
+  },
+  {
+    src: "/videos/testing-an-idea-2.mp4",
+    poster: "/videos/testing-an-idea-2.jpg",
+    caption: "A student tests red laser light through a row of rods",
+  },
+];
+
 const playlist = "https://www.youtube.com/playlist?list=PLUacnczd9pX0";
+
+function LabClip({ src, poster, caption }: { src: string; poster: string; caption: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [playing, setPlaying] = useState(false);
+  return (
+    <figure className="overflow-hidden rounded-[1.25rem] bg-card ring-1 ring-border">
+      <div className="relative aspect-[1280/576] bg-black">
+        <video
+          ref={videoRef}
+          src={src}
+          poster={poster}
+          playsInline
+          preload="metadata"
+          controls={playing}
+          className="absolute inset-0 h-full w-full object-contain"
+        />
+        {!playing && (
+          <button
+            type="button"
+            aria-label={`Play: ${caption}`}
+            onClick={() => {
+              setPlaying(true);
+              void videoRef.current?.play();
+            }}
+            className="group absolute inset-0 block"
+          >
+            <img src={poster} alt="" className="h-full w-full object-contain" />
+            <span className="absolute inset-0 grid place-items-center bg-foreground/15 transition-colors group-hover:bg-foreground/5">
+              <span className="grid size-14 place-items-center rounded-2xl bg-coral shadow-lg transition-transform group-hover:scale-105">
+                <Play className="size-6 fill-current text-coral-foreground" />
+              </span>
+            </span>
+          </button>
+        )}
+      </div>
+      <figcaption className="px-4 py-3 text-sm font-medium">{caption}</figcaption>
+    </figure>
+  );
+}
+
+function LabClips() {
+  return (
+    <div className="mt-6 grid gap-4">
+      {labVideos.map((clip) => (
+        <LabClip key={clip.src} {...clip} />
+      ))}
+    </div>
+  );
+}
 
 function PlaylistLink() {
   return (
@@ -40,17 +103,11 @@ export function EnquiryLabs({ stage }: { stage: "middle" | "secondary" }) {
         <p className="mt-3 max-w-3xl text-muted-foreground">
           In Classes IX and X, enquiry stays at the centre of the week, now beside the Physics, Chemistry and Biology laboratories. The Curiosity Lab and the Robotics Lab are where a lesson becomes something students build and test, and some of that work still happens beyond the classroom.
         </p>
+        <LabClips />
         <div className="mt-6">
           <VideoGrid videos={secondaryVideos} cols={2} />
         </div>
         <PlaylistLink />
-        <div className="mt-6 grid gap-3 sm:grid-cols-2">
-          <img
-            src={robots}
-            alt="Student-built robots in the Robotics Lab"
-            className="aspect-[4/3] w-full rounded-2xl object-cover object-[center_62%]"
-          />
-        </div>
       </section>
     );
   }
