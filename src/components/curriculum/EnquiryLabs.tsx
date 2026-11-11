@@ -18,25 +18,17 @@ const secondaryVideos = [
 ];
 
 const labVideos = [
-  {
-    src: "/videos/testing-an-idea.mp4",
-    poster: "/videos/testing-an-idea.jpg",
-    caption: "Students watch a green laser fountain",
-  },
-  {
-    src: "/videos/testing-an-idea-2.mp4",
-    poster: "/videos/testing-an-idea-2.jpg",
-    caption: "A student tests red laser light through a row of rods",
-  },
+  { src: "/videos/testing-an-idea.mp4", poster: "/videos/testing-an-idea.jpg" },
+  { src: "/videos/testing-an-idea-2.mp4", poster: "/videos/testing-an-idea-2.jpg" },
 ];
 
 const playlist = "https://www.youtube.com/playlist?list=PLUacnczd9pX0";
 
-function LabClip({ src, poster, caption }: { src: string; poster: string; caption: string }) {
+function LabClip({ src, poster }: { src: string; poster: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   return (
-    <figure className="overflow-hidden rounded-[1.25rem] bg-card ring-1 ring-border">
+    <div className="overflow-hidden rounded-[1.25rem] bg-card ring-1 ring-border">
       <div className="relative aspect-[1280/576] bg-black">
         <video
           ref={videoRef}
@@ -50,7 +42,7 @@ function LabClip({ src, poster, caption }: { src: string; poster: string; captio
         {!playing && (
           <button
             type="button"
-            aria-label={`Play: ${caption}`}
+            aria-label="Play"
             onClick={() => {
               setPlaying(true);
               void videoRef.current?.play();
@@ -66,8 +58,7 @@ function LabClip({ src, poster, caption }: { src: string; poster: string; captio
           </button>
         )}
       </div>
-      <figcaption className="px-4 py-3 text-sm font-medium">{caption}</figcaption>
-    </figure>
+    </div>
   );
 }
 
