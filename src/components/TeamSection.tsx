@@ -1,15 +1,12 @@
+import { Link } from "@tanstack/react-router";
 import principal from "@/assets/jayshree-nair.png";
 import vicePrincipal from "@/assets/neha-sethi.png";
 import headMistress from "@/assets/asha-sharma.png";
-import chairman from "@/assets/rp-singh.png";
-import managingDirector from "@/assets/abhiney-singh.png";
 
 const members = [
   { name: "Mrs Jayshree Nair", role: "Principal", image: principal },
   { name: "Mrs Neha Sethi", role: "Vice Principal", image: vicePrincipal },
   { name: "Mrs Asha Sharma", role: "Head Mistress", image: headMistress },
-  { name: "Mr R P Singh", role: "Chairman", image: chairman },
-  { name: "Mr Abhiney Singh", role: "Managing Director", image: managingDirector },
 ];
 
 function PatternBand() {
@@ -34,8 +31,14 @@ export function TeamSection() {
         <div className="relative">
           <h2 className="max-w-sm font-display text-2xl md:text-3xl">The people who lead Brighton</h2>
           <p className="mt-1.5 max-w-md text-sm text-primary-foreground/85">
-            Principal, Vice Principal and Head Mistress, then the Chairman and Managing Director.
+            Principal, Vice Principal and Head Mistress.
           </p>
+          <Link
+            to="/about/management"
+            className="mt-4 inline-flex rounded-full bg-coral px-6 py-2.5 font-display text-coral-foreground transition-opacity hover:opacity-90"
+          >
+            Know more
+          </Link>
         </div>
       </div>
 
