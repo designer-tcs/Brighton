@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Download } from "lucide-react";
 import { PhotoSlot } from "@/components/PhotoSlot";
 import prePrimary from "@/assets/prog-pre-primary.jpg";
-import primary from "@/assets/prog-middle.jpg";
+import primary from "@/assets/prog-primary-card.jpg";
 import middle from "@/assets/middle-science-model.jpg";
 import secondary from "@/assets/secondary-study.jpg";
 import seniorSecondary from "@/assets/prog-secondary.jpg";
@@ -36,10 +36,10 @@ const programs: {
     grades: "Class 1 to 5",
     body: "Strong fundamentals built through hands-on learning, so reading, reasoning and listening become habits for life.",
     image: primary,
-    alt: "Students working at computers",
+    alt: "A girl with two braids in a red and navy sweater writing in a notebook",
     cta: "Discover Primary",
     to: "/curriculum/primary",
-    position: "object-[center_42%]",
+    position: "object-[center_32%]",
   },
   {
     title: "Middle",
