@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/SiteLayout";
 import { Banner, meta } from "@/components/TabNav";
 import { GalleryTour } from "@/components/GalleryTour";
-import block from "@/assets/school/academic-side.jpg";
+import block from "@/assets/school/infrastructure-hero.jpg";
 import library from "@/assets/tour-library.jpg";
 import classroom from "@/assets/tour-classroom.jpg";
 
@@ -46,6 +46,7 @@ function Infrastructure() {
         title="Eight acres built for learning"
         intro="Off Baloda Bazaar Road, 1.5 km from the state Legislative Assembly — lush lawns, a modern academic block and courts and grounds for every sport."
         img={block}
+        objectPosition="center center"
         frame="aspect-[3/2]"
       />
 
@@ -86,7 +87,7 @@ function Infrastructure() {
       </section>
 
       <section className="mt-6 rounded-[1.75rem] bg-primary p-8 text-primary-foreground md:p-10">
-        <h2 className="font-display text-3xl md:text-4xl">Sports — 2.5 acres of dedicated space</h2>
+        <h2 className="font-display text-3xl md:text-4xl">Sports — 4 acres of dedicated space</h2>
         <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {sports.map(([t, b]) => (
             <div key={t} className="rounded-2xl bg-primary-foreground/10 p-5">
