@@ -5,6 +5,7 @@ import { SectionBanner } from "@/components/SectionBanner";
 import { AdmissionFlowInfographic } from "@/components/AdmissionFlowInfographic";
 import { BestResults } from "@/components/admissions/BestResults";
 import { BestGuide } from "@/components/admissions/BestGuide";
+import { BEST_REGISTER_URL, bestRegistrationIsOpen } from "@/components/admissions/best-registration";
 import { Field, inputClass, Td, Th } from "@/components/admissions/ui";
 
 const enquiryClasses = [
@@ -22,7 +23,7 @@ const enquiryClasses = [
   "Class IX",
   "Class XI",
 ];
-import admissionsHero from "@/assets/school/campus-gate.jpg";
+import admissionsHero from "@/assets/school/admissions-drone.png";
 import { WhatYourChildWalksInto } from "@/components/story/BrightonStory";
 
 export const Route = createFileRoute("/admissions/")({
@@ -89,19 +90,21 @@ const documents = [
 ];
 
 function AdmissionsIndex() {
+  const registerForBest = bestRegistrationIsOpen();
+
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden rounded-[1.75rem]">
+      <section className="overflow-hidden rounded-[1.75rem] lg:relative">
         <img
           src={admissionsHero}
-          alt="The Brighton entrance, with the school name above the doors"
-          width={1600}
-          height={1067}
-          className="aspect-[3/2] w-full object-cover object-center"
+          alt="Aerial view of the Brighton campus, with the school buildings, palms and gate"
+          width={929}
+          height={468}
+          className="aspect-[929/468] w-full object-cover object-center lg:absolute lg:inset-0 lg:h-full"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-foreground/85 via-foreground/55 to-transparent" />
-        <div className="absolute inset-0 flex flex-col justify-center gap-4 p-7 md:p-14">
+        <div className="pointer-events-none absolute inset-0 hidden bg-gradient-to-r from-foreground/85 via-foreground/55 to-transparent lg:block" />
+        <div className="relative flex flex-col justify-center gap-4 bg-foreground p-7 lg:aspect-[929/468] lg:bg-transparent lg:p-14">
           <p className="nav-index text-background/70">Admissions</p>
           <h1 className="max-w-2xl font-display text-4xl leading-[1.02] text-background md:text-6xl">
             Admission at <span className="text-coral">Brighton</span>
@@ -146,9 +149,39 @@ function AdmissionsIndex() {
       <section id="apply" className="mt-4">
         <SectionBanner
           title="Apply for Admission"
-          subtitle="Tell us a little about your child and our admissions team will get back to you."
+          subtitle={
+            registerForBest
+              ? "Register for the Brighton Entrance Scholastic Test (BEST) for Session 2027–28."
+              : "Tell us a little about your child and our admissions team will get back to you."
+          }
           tone="dark"
         />
+        {registerForBest && (
+          <div className="card-shell mt-3 border border-border p-7">
+            <h2 className="font-display text-2xl text-primary">Brighton Entrance Scholastic Test (BEST)</h2>
+            <p className="mt-2 max-w-3xl text-sm text-muted-foreground">
+              Students of Class I and above take BEST at the campus. It is an offline pencil-and-paper
+              test. For Session 2027–28 the date is Sunday, 17 January 2027. Register in advance — there
+              is no spot registration on the day of the test. The registration fee is Rs 1,500. Results
+              of the 17 January 2027 test are released by 4:00 pm on Tuesday, 19 January 2027.
+            </p>
+            <a
+              href={BEST_REGISTER_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-5 inline-flex rounded-full bg-primary px-6 py-2.5 font-display text-primary-foreground transition-opacity hover:opacity-90"
+            >
+              Register for BEST
+            </a>
+            <p className="mt-3 text-sm text-muted-foreground">
+              Enquiries still go to{" "}
+              <a href="tel:+919993466111" className="text-primary">
+                +91 999 3466 111
+              </a>
+              .
+            </p>
+          </div>
+        )}
         <div className="card-shell mt-3 space-y-3 border border-border p-7 text-sm">
           <p>
             We do not provide dummy admissions. Kindly do not approach with any such request for
@@ -159,6 +192,7 @@ function AdmissionsIndex() {
             Sundays, by visiting the campus. We are closed only during major festivals and holidays.
           </p>
         </div>
+        {!registerForBest && (
         <form
           className="card-shell mt-3 border border-border p-7 md:p-9"
           onSubmit={(e) => e.preventDefault()}
@@ -199,6 +233,7 @@ function AdmissionsIndex() {
             This form is not connected yet — call +91 999 3466 111 to reach admissions today.
           </p>
         </form>
+        )}
       </section>
 
       {/* Procedure */}
@@ -261,14 +296,16 @@ function AdmissionsIndex() {
               The registration form can be filled at the campus or online. There is no spot
               registration on the day of the test.
             </p>
-            <a
-              href="https://pgpay.icici.bank.in/pg/portal/pay/initiatePayOrder?merchantID=100000000543884"
-              target="_blank"
-              rel="noreferrer"
-              className="mt-5 inline-flex rounded-full bg-primary px-6 py-2.5 font-display text-primary-foreground transition-opacity hover:opacity-90"
-            >
-              Register for BEST
-            </a>
+            {registerForBest && (
+              <a
+                href={BEST_REGISTER_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-5 inline-flex rounded-full bg-primary px-6 py-2.5 font-display text-primary-foreground transition-opacity hover:opacity-90"
+              >
+                Register for BEST
+              </a>
+            )}
           </div>
         </div>
       </section>
@@ -359,15 +396,19 @@ function AdmissionsIndex() {
               Raipur a place where your child can thrive.
             </p>
           </div>
-          <a
-            href="https://pgpay.icici.bank.in/pg/portal/pay/initiatePayOrder?merchantID=100000000543884"
-            target="_blank"
-            rel="noreferrer"
-            className="mt-6 inline-flex rounded-full bg-primary px-6 py-2.5 font-display text-primary-foreground transition-opacity hover:opacity-90"
-          >
-            Register for BEST — Admission Test
-          </a>
-          <p className="mt-3 text-sm text-muted-foreground">Registration fee — Rs 1,500</p>
+          {registerForBest && (
+            <>
+              <a
+                href={BEST_REGISTER_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-6 inline-flex rounded-full bg-primary px-6 py-2.5 font-display text-primary-foreground transition-opacity hover:opacity-90"
+              >
+                Register for BEST — Admission Test
+              </a>
+              <p className="mt-3 text-sm text-muted-foreground">Registration fee — Rs 1,500</p>
+            </>
+          )}
         </div>
       </section>
 

@@ -21,9 +21,7 @@ import {
   X,
 } from "lucide-react";
 
-/** Entrance test registration link — "#" until Abhinay sends the real one. */
-const ENTRANCE_TEST_LINK =
-  "https://pgpay.icici.bank.in/pg/portal/pay/initiatePayOrder?merchantID=100000000543884";
+import { BEST_REGISTER_URL, bestRegistrationIsOpen } from "@/components/admissions/best-registration";
 
 /* ------------------------------------------------------------------ */
 /* Shared bits                                                         */
@@ -429,6 +427,7 @@ export function WhatYourChildWalksInto() {
     },
     { k: "Max 30", v: <ClassOf30 />, cap: "students per class" },
   ];
+  const registerForBest = bestRegistrationIsOpen();
   return (
     <section className="mt-6">
       <Reveal>
@@ -449,14 +448,16 @@ export function WhatYourChildWalksInto() {
               <CalendarDays className="size-4 text-coral" /> BEST · Session 2027–28 ·
               <span className="font-display text-coral">17 January 2027</span>
             </div>
-            <a
-              href={ENTRANCE_TEST_LINK}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full bg-coral px-6 py-2.5 font-display text-coral-foreground transition-transform hover:-translate-y-0.5"
-            >
-              Register for the test · ₹1,500 <ArrowRight className="size-4" />
-            </a>
+            {registerForBest && (
+              <a
+                href={BEST_REGISTER_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-coral px-6 py-2.5 font-display text-coral-foreground transition-transform hover:-translate-y-0.5"
+              >
+                Register for the test · ₹1,500 <ArrowRight className="size-4" />
+              </a>
+            )}
           </div>
         </div>
       </Reveal>
