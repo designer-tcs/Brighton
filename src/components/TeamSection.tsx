@@ -1,14 +1,14 @@
 import { useState } from "react";
-import principal from "@/assets/jayshree-nair.png";
-import vicePrincipal from "@/assets/neha-sethi.png";
-import headMistress from "@/assets/asha-sharma.png";
-import chairman from "@/assets/rp-singh.png";
-import managingDirector from "@/assets/abhiney-singh.png";
+import principal from "@/assets/jayshree-nair.jpg";
+import vicePrincipal from "@/assets/neha-sethi.jpg";
+import headMistress from "@/assets/asha-sharma.jpg";
+import chairman from "@/assets/rp-singh.jpg";
+import managingDirector from "@/assets/abhiney-singh.jpg";
 
 const members = [
-  { name: "Mrs Jayshree Nair", role: "Principal", image: principal },
-  { name: "Mrs Neha Sethi", role: "Vice Principal", image: vicePrincipal },
-  { name: "Mrs Asha Sharma", role: "Head Mistress", image: headMistress },
+  { name: "Mrs Jayshree Nair", role: "Principal", image: principal, position: "object-center" },
+  { name: "Mrs Neha Sethi", role: "Vice Principal", image: vicePrincipal, position: "object-center" },
+  { name: "Mrs Asha Sharma", role: "Head Mistress", image: headMistress, position: "object-center" },
 ];
 
 const moreLeaders = [
@@ -16,12 +16,14 @@ const moreLeaders = [
     name: "Mr R P Singh",
     role: "Chairman",
     image: chairman,
+    position: "object-center",
     msg: "At Brighton, we see lifelong learning as a goal for all, with quality at its heart. We aim to give every student the chance to fulfil their ambitions and to recognise every achievement, small or big. We seek to build responsible citizens with tolerance, understanding and integrity — and we seek our parents as partners, within and beyond the school gates.",
   },
   {
     name: "Mr Abhiney Singh",
     role: "Managing Director",
     image: managingDirector,
+    position: "object-center",
     msg: "School is where the true DNA of a person's personality takes shape. Parents share this huge responsibility with us, and it is our duty to do justice to their trust, time and money. We bring in the best practices from around the world and try to improve every day, keeping Brighton open, frank and centred on every child.",
   },
 ];
@@ -62,9 +64,9 @@ export function TeamSection() {
               src={m.image}
               alt={`${m.name}, ${m.role}`}
               loading="lazy"
-              width={179}
-              height={250}
-              className="aspect-[3/4] w-full rounded-2xl object-cover object-top"
+              width={480}
+              height={640}
+              className={`aspect-[3/4] w-full rounded-2xl object-cover ${m.position}`}
             />
             <h3 className="mt-4 font-display text-xl">{m.name}</h3>
             <p className="mt-1 text-sm text-muted-foreground">{m.role}</p>
@@ -90,9 +92,9 @@ export function TeamSection() {
                 src={m.image}
                 alt={`${m.name}, ${m.role}`}
                 loading="lazy"
-                width={179}
-                height={250}
-                className="aspect-[3/4] w-full rounded-2xl object-cover object-top"
+                width={480}
+                height={640}
+                className={`aspect-[3/4] w-full rounded-2xl object-cover ${m.position}`}
               />
               <h3 className="mt-4 font-display text-xl">{m.name}</h3>
               <p className="mt-1 text-sm text-muted-foreground">{m.role}</p>

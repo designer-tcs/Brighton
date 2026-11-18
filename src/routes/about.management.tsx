@@ -2,11 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { meta } from "@/components/TabNav";
 import { PageHeader } from "@/components/SiteLayout";
-import principal from "@/assets/jayshree-nair.png";
-import vicePrincipal from "@/assets/neha-sethi.png";
-import headMistress from "@/assets/asha-sharma.png";
-import chairman from "@/assets/rp-singh.png";
-import managingDirector from "@/assets/abhiney-singh.png";
+import principal from "@/assets/jayshree-nair.jpg";
+import vicePrincipal from "@/assets/neha-sethi.jpg";
+import headMistress from "@/assets/asha-sharma.jpg";
+import chairman from "@/assets/rp-singh.jpg";
+import managingDirector from "@/assets/abhiney-singh.jpg";
 
 export const Route = createFileRoute("/about/management")({
   head: () =>
