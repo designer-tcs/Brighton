@@ -6,6 +6,7 @@ import { meta } from "@/components/TabNav";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { bookList, faqGroups } from "@/components/admissions/beginnings-data";
 import { PhotoSlot } from "@/components/PhotoSlot";
+import firstDays from "@/assets/first-days.jpg";
 
 export const Route = createFileRoute("/admissions/beginnings")({
   head: () =>
@@ -34,7 +35,12 @@ function Beginnings() {
         tone="dark"
       />
 
-      <PhotoSlot label="Children on their first days at Brighton" className="mt-6 aspect-[3/2]" />
+      <PhotoSlot
+        label="Children on their first days at Brighton"
+        src={firstDays}
+        objectPosition="center 45%"
+        className="mt-6 aspect-[3/2]"
+      />
 
       <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {faqGroups.map((x, i) => {
