@@ -3,12 +3,13 @@ import tinkering from "@/assets/school/middle-robots.jpg";
 import makersFair from "@/assets/makers-fair.jpg";
 import parentsYear from "@/assets/parents-year.jpg";
 
-const videos: { title: string; body: string; label: string; image?: string }[] = [
+const videos: { title: string; body: string; label: string; image?: string; objectPosition?: string }[] = [
   {
     title: "Build. Brand. Sell at the Brighton Makers Fair",
     body: "Students design, build and sell real products — creativity, problem-solving and enterprise learnt by doing.",
     label: "Makers fair — students with what they made",
     image: makersFair,
+    objectPosition: "center",
   },
   {
     title: "They built THIS in the Tinkering Lab?",
@@ -54,7 +55,12 @@ export function BehindScenesSection() {
       <div className="mt-3 grid gap-3 md:grid-cols-3">
         {videos.map((v) => (
           <article key={v.title} className="card-shell overflow-hidden border border-border">
-            <PhotoSlot label={v.label} src={v.image} className="aspect-[3/2] rounded-none" />
+            <PhotoSlot
+              label={v.label}
+              src={v.image}
+              objectPosition={v.objectPosition}
+              className="aspect-[3/2] rounded-none"
+            />
             <div className="p-6">
               <h3 className="font-display text-lg leading-snug">{v.title}</h3>
               <hr className="my-4 border-border" />
