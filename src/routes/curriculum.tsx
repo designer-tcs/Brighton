@@ -14,7 +14,7 @@ const tabs = [
   { label: "Senior Secondary", to: "/curriculum/senior-secondary" },
   { label: "SKED", to: "/curriculum/sked" },
   { label: "Across Brighton", to: "/curriculum/across-brighton" },
-  { label: "Robotics", to: "/curriculum/robotics" },
+  { label: "Robotics", to: "/curriculum/robotics", exact: false },
   { label: "Sports", to: "/curriculum/sports" },
   { label: "Board Exam Results", to: "/curriculum/board-results" },
 ];
