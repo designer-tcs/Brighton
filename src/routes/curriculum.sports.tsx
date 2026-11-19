@@ -2,6 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Clock, IndianRupee, MapPin, CalendarDays } from "lucide-react";
 import { SectionBanner } from "@/components/SectionBanner";
 import { meta } from "@/components/TabNav";
+import cricket from "@/assets/sports/cricket.jpg";
+import football from "@/assets/sports/football.jpg";
+import volleyball from "@/assets/sports/volleyball.png";
+import basketball from "@/assets/sports/basketball.jpg";
+import boxing from "@/assets/sports/boxing.jpg";
+import outdoorMultiplay from "@/assets/sports/outdoor-multiplay.jpg";
 
 export const Route = createFileRoute("/curriculum/sports")({
   head: () =>
@@ -36,6 +42,34 @@ const coaches = [
     n: "Miss Kajal Meshram",
     b: "BCCI Level-1 certified coach (2022-23) and Assistant Coach at the academy. Assistant Coach of the Chhattisgarh State Cricket Sangh U-15 & U-19 teams (2023-24), Head Coach of a university team (2023-24) and a former CSCS player.",
   },
+];
+
+const programme = [
+  {
+    k: "Objective",
+    body: "At Brighton International School, the sports programme grows with the child. It begins with building gross motor skills in the early years and progresses to advanced skills and a deeper understanding of a wide range of sports and games. The programme aims to introduce students to different sports through first-hand experience, help every child reach a healthy level of fitness, and instil a lifelong appreciation of sport and fitness as part of daily life. It also nurtures our most talented players into strong teams that represent the school at every level, and gives students who wish to excel the platform and opportunities to do so.",
+  },
+  {
+    k: "Infrastructure",
+    body: "Our campus has more than four acres dedicated to sports, with facilities for cricket, football, volleyball, basketball and boxing, along with indoor games such as table tennis, chess and carrom. An indoor sports academy is also planned for the near future.",
+  },
+  {
+    k: "Faculty",
+    body: "The programme is led by a team of more than ten qualified coaches, both men and women, each holding a B.P.Ed. degree and specialising in the sports Brighton offers. Under their guidance, our students have achieved outstanding results in school-level competitions at regional and national levels.",
+  },
+  {
+    k: "Classes",
+    body: "Primary classes have at least three sports periods a week, while the Middle section and above have at least two. Students can also choose sports as their hobby, and those representing the school receive dedicated training after school hours ahead of competitions. For students seeking high-intensity training, the school runs a Cricket Academy beyond school hours, with fees charged separately from the school fee, as well as a sports camp during the summer vacation.",
+  },
+];
+
+const gallery = [
+  { label: "Cricket", src: cricket, position: "object-center" },
+  { label: "Football", src: football, position: "object-center" },
+  { label: "Volleyball", src: volleyball, position: "object-center" },
+  { label: "Basketball", src: basketball, position: "object-center" },
+  { label: "Boxing", src: boxing, position: "object-[center_42%]" },
+  { label: "Outdoor Multiplay", src: outdoorMultiplay, position: "object-center" },
 ];
 
 const camp = [
@@ -86,6 +120,30 @@ function Sports() {
             </article>
           ))}
         </section>
+      </div>
+
+      <div className="mt-8">
+        <SectionBanner title="Sports at Brighton" />
+        <div className="mt-4 grid gap-4 md:grid-cols-2">
+          {programme.map((p) => (
+            <article key={p.k} className="card-shell p-6">
+              <h2 className="font-display text-2xl text-primary">{p.k}</h2>
+              <p className="mt-3 text-sm text-muted-foreground">{p.body}</p>
+            </article>
+          ))}
+        </div>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {gallery.map((g) => (
+            <figure key={g.label} className="card-shell overflow-hidden">
+              <img
+                src={g.src}
+                alt={g.label}
+                className={`aspect-[3/2] w-full object-cover ${g.position}`}
+              />
+              <figcaption className="px-5 py-3 font-display text-lg">{g.label}</figcaption>
+            </figure>
+          ))}
+        </div>
       </div>
 
       <div className="mt-8">
